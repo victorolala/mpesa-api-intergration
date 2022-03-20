@@ -13,8 +13,8 @@ function lipaNaMpesaPassword()
     //timestamp
     $timestamp = Carbon::rawParse('now')->format('YmdHms');
     //passkey
-    $passKey ="c9696991aea3a9776c276c8e8a4ad40c0a2e3427c2f64a811ced319ca07781dd";
-    $businessShortCOde =4075143;
+    $passKey ="";
+    $businessShortCOde =1234567;
     //generate password
     $mpesaPassword = base64_encode($businessShortCOde.$passKey.$timestamp);
 
@@ -24,8 +24,8 @@ function lipaNaMpesaPassword()
 
    function newAccessToken()
    {
-       $consumer_key="BhzTERDBffApjKWXiMKCvgdNqHBDI1bu";
-       $consumer_secret="mn6B64XU271PYJ6X";
+       $consumer_key="";
+       $consumer_secret="";
        $credentials = base64_encode($consumer_key.":".$consumer_secret);
        $url = "https://api.safaricom.co.ke/oauth/v1/generate?grant_type=client_credentials";
 
@@ -49,27 +49,27 @@ function lipaNaMpesaPassword()
        //    $user = $request->user;
        //    $amount = $request->amount;
        //    $phone =  $request->phone;
-       //    $formatedPhone = substr($phone, 1);//726582228
+       //    $formatedPhone = substr($phone, 1);//716311660
        //    $code = "254";
-       //    $phoneNumber = $code.$formatedPhone;//254726582228     
+       //    $phoneNumber = $code.$formatedPhone;//254716311660    
       
       // .$_POST['phone'] = (int).$_POST['phone'];
     //$var = ltrim($var, '0');
 
        $url = 'https://api.safaricom.co.ke/mpesa/stkpush/v1/processrequest';
        $curl_post_data = [
-            'BusinessShortCode' =>4075143,
-            //'BusinessShortCode' =>7360076,
+            'BusinessShortCode' =>1234567,
+            
             'Password' => lipaNaMpesaPassword(),
             'Timestamp' => Carbon::rawParse('now')->format('YmdHms'),
             'TransactionType' => 'CustomerPayBillOnline',
             'Amount' => $amount,
             'PartyA' =>'254'.(int)($_POST['phone']),
-            'PartyB' => 4075143,
-            //'PartyB' => 7360076,
+            'PartyB' => 1234567,
+          
             'PhoneNumber' => '254'.(int)($_POST['phone']),
-            //'CallBackURL' => 'https://08b2-105-163-2-167.ngrok.io/tclfinance/callback.php',
-           //'CallBackURL' => 'http://nexpay.co.ke/mpesa/single.php',
+            'CallBackURL' => 'https://08b2-105-163-2-167.ngrok.io/tclfinance/callback.php',
+         
             'ConfirmationURL'=>'https://08b2-105-163-2-167.ngrok.io/tclfinance/confirmation_url.php',
             'AccountReference' => "Nexpay System",
             
